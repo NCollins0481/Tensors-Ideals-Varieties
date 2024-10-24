@@ -59,3 +59,32 @@ Y := Matrix(Z, COLS,COLS, [0,0,0, 1,0,0, 0,1,0]);
 
 J, axes_ideal, J_mod_axes := compute_recurrence_ideal_without_axis_polynomials(M, X, Y);
 J_mod_axes_empty := IsZero(J_mod_axes);
+
+// Example intersecting two ideals.
+// v1 := [0, 0, 1, 0, 0, 1];
+// MS1 := RMatrixSpace(Z, ROWS,COLS);
+// M1 := MS1!v1;
+
+// X_MS1 := RMatrixSpace(Z, ROWS, ROWS);
+// X1 := Matrix(Z, ROWS,ROWS, [0,1, 0,0]);
+
+// Y_MS1 := RMatrixSpace(Z, COLS, COLS);
+// Y1 := Matrix(Z, COLS,COLS, [0,1,0, 0,0,1, 0,0,0]);
+
+// J1, axes_ideal1, J_mod_axes1 := compute_recurrence_ideal_without_axis_polynomials(M1, X1, Y1);
+// J_mod_axes_empty1 := IsZero(J_mod_axes1);
+
+// v2 := [0, 0, 0, 0, 0, 1];
+// MS2 := RMatrixSpace(Z, ROWS,COLS);
+// M2 := MS2!v2;
+
+// X_MS2 := RMatrixSpace(Z, ROWS, ROWS);
+// X2 := Matrix(Z, ROWS,ROWS, [0,1, 0,0]);
+
+// Y_MS2 := RMatrixSpace(Z, COLS, COLS);
+// Y2 := Matrix(Z, COLS,COLS, [0,1,0, 0,0,1, 0,0,0]);
+
+// J2, axes_ideal2, J_mod_axes2 := compute_recurrence_ideal_without_axis_polynomials(M2, X2, Y2);
+// J_mod_axes_empty2 := IsZero(J_mod_axes2);
+
+// J := J1 meet J2;
