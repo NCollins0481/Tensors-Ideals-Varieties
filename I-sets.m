@@ -63,6 +63,24 @@ compute_recurrence_ideal := function (S, X, Y, Z)
   return J, flattened_as_matrix, nullspace;
 end function;
 
+//Computes the set I(S,Ops) given a finite set of systems of forms S, operators embedded into a block diagonal matrix, and tuple of dimensions.
+Compute_I_set := function(S, Ops, dims)
+  a := dims[1];
+  b := dims[2];
+  c := dims[3];
+  offset := [1,a+1,a+b+1];
+  blocks := [* [ ExtractBlock(X,offset[i],offset[i],dims[i],dims[i]) : X in Ops ] : i in [1..3] *]; //grabs each block from diagonal. Stores in [X,Y,Z] where e.g X is the top left block of each
+
+  I := ideal<P | 1>;
+  for t in S do
+    for i in [1..#blocks[1]] do
+      I := I meet compute_recurrence_ideal(t, blocks[1][i], blocks[2][i], blocks[3][i]);
+    end for;
+  end for;
+
+  return I;
+end function;
+
 ROWS:=2;
 COLS:=2;
 DEPTH:=2;
@@ -93,3 +111,6 @@ GHZ_trait eq ideal<P | x^2-1, y^2-1,z^2-1,x*y-z,x-y*z,y-x*z>;
 
 W_trait := compute_recurrence_ideal(W, X, Y, Z);
 W_trait eq ideal<P | x^2-1, y^2-1,z^2-1>;
+
+Ops := [DiagonalJoin(X,DiagonalJoin(Y,Z))];
+I := Compute_I_set([GHZ, W], Ops, [ROWS,COLS,DEPTH]);
